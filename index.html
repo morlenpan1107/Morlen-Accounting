@@ -82,21 +82,13 @@
                 <span class="title">交通通訊</span>
                 <span class="desc">油錢、停車費、手機費、車輛保養</span>
             </button>
-            <button class="choice-btn" onclick="selectCategory(this, '醫療稅務')">
-                <span class="title">醫療稅務</span>
-                <span class="desc">保險、稅金、看診</span>
-            </button>
-            <button class="choice-btn" onclick="selectCategory(this, '興趣休閒')">
-                <span class="title">興趣休閒</span>
-                <span class="desc">露營設備、植物盆栽、旅遊、電影</span>
-            </button>
             <button class="choice-btn" onclick="selectCategory(this, '動物教學專區')">
                 <span class="title">動物教學專區</span>
                 <span class="desc">飼料、墊材、教具、寵物購入</span>
             </button>
             <button class="choice-btn" onclick="selectCategory(this, 'ACCUPASS出差支出')">
                 <span class="title">ACCUPASS出差支出</span>
-                <span class="desc">設備、網路、出差相關支出</span>
+                <span class="desc">設備、網路、出差支出</span>
             </button>
             <button class="choice-btn" onclick="selectCategory(this, '其他')">
                 <span class="title">其他</span>
@@ -135,7 +127,7 @@
         const btn = document.getElementById('submitBtn');
 
         if(!amount || !selectedPayer || !selectedCategory) {
-            alert('請完整填寫金額、付款人與分類！');
+            alert('請填寫金額並選擇付款人與分類！');
             return;
         }
 
@@ -144,12 +136,12 @@
 
         const baseURL = "https://docs.google.com/forms/d/e/1FAIpQLSeZincp4x3IA2v3ykuSmBhdFu_QeYL_iHbwreguQeINtw8HeA/formResponse";
         
-        // 使用 URLSearchParams 確保中文字（潘宥樽、朱沛祺）能安全地轉換成網址格式
+        // --- 根據你提供的正確對應關係進行修正 ---
         const params = new URLSearchParams();
-        params.append('entry.1900830363', amount);
-        params.append('entry.883377183', selectedPayer);
-        params.append('entry.429727703', selectedCategory);
-        params.append('entry.1671228725', note);
+        params.append('entry.1900830363', selectedPayer);     // 改為：付款人
+        params.append('entry.883377183', amount);             // 改為：金額
+        params.append('entry.1671228725', selectedCategory);  // 改為：類別
+        params.append('entry.429727703', note);               // 改為：備註
 
         const formURL = `${baseURL}?${params.toString()}`;
 
