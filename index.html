@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morlen 共同記帳系統</title>
     <style>
-        /* 背景與整體風格 */
         body {
             margin: 0;
             padding: 20px 10px;
@@ -18,7 +17,6 @@
             min-height: 100vh;
         }
 
-        /* 毛玻璃白底容器 */
         .container {
             background: rgba(255, 255, 255, 0.96);
             width: 100%;
@@ -34,7 +32,7 @@
         .field { margin-bottom: 20px; }
         label { display: block; margin-bottom: 10px; font-weight: bold; color: #333; font-size: 1.1em; }
 
-        /* 付款人切換按鈕 */
+        /* 付款人按鈕佈局 */
         .payer-group {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -58,7 +56,6 @@
             color: #2d5a27;
         }
 
-        /* 金額與備註輸入框 */
         input[type="number"], input[type="text"] {
             width: 100%;
             padding: 15px;
@@ -70,7 +67,7 @@
         }
         input:focus { border-color: #2d5a27; }
 
-        /* 分類大按鈕 */
+        /* 分類按鈕佈局 */
         .btn-group { display: flex; flex-direction: column; gap: 12px; }
         .choice-btn {
             background: white;
@@ -90,7 +87,6 @@
         .title { font-size: 1.15em; font-weight: bold; color: #222; display: block; }
         .desc { font-size: 0.85em; color: #777; display: block; margin-top: 6px; line-height: 1.4; }
 
-        /* 送出按鈕 */
         .submit-btn {
             width: 100%;
             padding: 18px;
@@ -160,13 +156,17 @@
             </button>
             <button class="choice-btn" onclick="selectCategory(this, '【ACCUPASS出差支出】')">
                 <span class="title">【ACCUPASS出差支出】</span>
-                <span class="desc">設備採買、軟體訂閱、API、出差硬體</span>
+                <span class="desc">設備採買、網路儲值、出差支出</span>
+            </button>
+            <button class="choice-btn" onclick="selectCategory(this, '【其他】')">
+                <span class="title">【其他】</span>
+                <span class="desc">無法歸類的突發支出</span>
             </button>
         </div>
     </div>
 
     <div class="field">
-        <label>備註 (可選)</label>
+        <label>備註</label>
         <input type="text" id="note" placeholder="例如：換機油、買墊材">
     </div>
 
@@ -202,16 +202,14 @@
         btn.disabled = true;
         btn.innerText = "傳送中...";
 
-        // Google 表單提交網址
         const baseURL = "https://docs.google.com/forms/d/e/1FAIpQLSeZincp4x3IA2v3ykuSmBhdFu_QeYL_iHbwreguQeINtw8HeA/formResponse";
         
-        // 這裡填入你剛剛抓到的 Entry ID
+        // 根據你的 Entry ID 進行精確配對
         const formURL = `${baseURL}?entry.1900830363=${encodeURIComponent(amount)}` + 
                         `&entry.883377183=${encodeURIComponent(selectedPayer)}` + 
                         `&entry.429727703=${encodeURIComponent(selectedCategory)}` + 
                         `&entry.1671228725=${encodeURIComponent(note)}`;
 
-        // 發送
         fetch(formURL, { mode: 'no-cors' })
             .then(() => {
                 alert('記帳成功！');
