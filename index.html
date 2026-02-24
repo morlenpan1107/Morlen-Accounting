@@ -66,9 +66,8 @@
     let selectedPayer = "";
     let selectedCategory = "";
 
-    // 這裡精簡了收入分類，並保留原有的支出與信用卡選項
     const categories = {
-        "支出": ["居家生活", "飲食採買", "孩子專區", "交通通訊", "醫療稅務", "興趣休閒", "動物與教學", "ACCUPASS出差支出", "靈活應用金", "其他"],
+        "支出": ["居家生活", "飲食採買", "孩子專區", "交通通訊", "醫療稅務", "興趣休閒", "動物教學專區", "ACCUPASS出差支出", "負債清零計畫", "靈活應用金", "其他"],
         "收入": ["薪資收入", "投資收入", "其他收入"],
         "信用卡": ["居家生活", "飲食採買", "交通通訊", "其他"]
     };
@@ -104,7 +103,7 @@
     }
 
     function sendToGoogle() {
-        const amount = document.getElementById('amount').value.trim();
+        let amount = document.getElementById('amount').value.trim();
         const note = document.getElementById('note').value.trim();
         if(!amount || !selectedPayer || !selectedCategory) return alert('請填寫完整！');
 
@@ -112,8 +111,12 @@
         btn.disabled = true;
         btn.innerText = "傳送中...";
 
+        // 財務邏輯：支出與信用卡自動變負數，方便試算表統計
+        if (selectedType === "支出" || selectedType === "信用卡") {
+            amount = "-" + amount;
+        }
+
         const params = new URLSearchParams();
-        // 使用你確認的 Entry ID 進行對應
         params.append('entry.760255955', selectedType); 
         params.append('entry.1900830363', selectedPayer);
         params.append('entry.883377183', amount);
