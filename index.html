@@ -35,7 +35,7 @@
     </div>
 
     <div class="field">
-        <label id="payerLabel">所屬人</label>
+        <label>所屬人</label>
         <div class="group" id="payerGroup">
             <div class="btn" onclick="selectPayer('潘宥樽', this)">潘宥樽</div>
             <div class="btn" onclick="selectPayer('朱沛祺', this)">朱沛祺</div>
@@ -66,10 +66,11 @@
     let selectedPayer = "";
     let selectedCategory = "";
 
+    // 已經調整：信用卡移除債務清零，支出新增「繳信用卡費」
     const categories = {
-        "支出": ["居家生活", "飲食採買", "孩子專區", "交通通訊", "醫療稅務", "興趣休閒", "動物教學專區", "ACCUPASS出差支出", "負債清零計畫", "靈活應用金", "其他"],
-        "收入": ["薪資收入", "投資收入", "其他收入"],
-        "信用卡": ["居家生活", "飲食採買", "交通通訊", "其他"]
+        "支出": ["居家生活", "飲食採買", "孩子專區", "交通通訊", "醫療稅務", "興趣休閒", "動物教學專區", "ACCUPASS出差支出", "負債清零計畫", "繳信用卡費", "靈活應用金", "其他"],
+        "信用卡": ["居家生活", "飲食採買", "孩子專區", "交通通訊", "醫療稅務", "興趣休閒", "動物教學專區", "ACCUPASS出差支出", "靈活應用金", "其他"],
+        "收入": ["薪資收入", "投資收入", "其他收入"]
     };
 
     function renderCategories() {
@@ -111,9 +112,11 @@
         btn.disabled = true;
         btn.innerText = "傳送中...";
 
-        // 財務邏輯：支出與信用卡自動變負數，方便試算表統計
+        // 自動變負數邏輯：確保支出與信用卡傳送到試算表時帶負號
         if (selectedType === "支出" || selectedType === "信用卡") {
-            amount = "-" + amount;
+            if (!amount.startsWith("-")) {
+                amount = "-" + amount;
+            }
         }
 
         const params = new URLSearchParams();
