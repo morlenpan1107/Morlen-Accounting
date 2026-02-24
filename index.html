@@ -5,25 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morlen 財務管理系統</title>
     <style>
+        /* 整體背景與字體設定 */
         body { margin: 0; padding: 20px 10px; background: url('https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed; background-size: cover; font-family: "Microsoft JhengHei", sans-serif; display: flex; justify-content: center; min-height: 100vh; }
+        
         .container { background: rgba(255, 255, 255, 0.96); width: 100%; max-width: 480px; padding: 25px; border-radius: 24px; box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
-        .field { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 10px; font-weight: bold; color: #333; }
-        .group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-        .btn { padding: 12px 5px; border: 2px solid #eee; border-radius: 12px; background: white; cursor: pointer; text-align: center; font-weight: bold; transition: 0.2s; font-size: 0.9em; }
-        .btn.active { border-color: #2d5a27; background: #f0f7ef; color: #2d5a27; }
-        input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 18px; outline: none; }
-        .choice-btn { background: white; border: 2px solid #eee; border-radius: 16px; padding: 15px; text-align: left; cursor: pointer; width: 100%; margin-bottom: 10px; transition: 0.2s; }
-        .choice-btn.active { border-color: #2d5a27; background: #f0f7ef; }
-        .choice-btn .t { font-weight: bold; display: block; }
-        .submit-btn { width: 100%; padding: 18px; background: #2d5a27; color: white; border: none; border-radius: 15px; font-size: 1.2em; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        
+        /* 標題加強：純黑加大 */
+        h2 { text-align:center; color:#000000; margin-bottom:5px; font-weight: 900; font-size: 1.8em; }
+        .sub-title { text-align:center; color:#000000; font-size:1em; margin-bottom:25px; font-weight: bold; }
+        
+        .field { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 12px; font-weight: 900; color: #000000; font-size: 1.2em; }
+        
+        /* 交易類型與所屬人按鈕：加大字體與高度 */
+        .group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+        .btn { padding: 18px 5px; border: 2px solid #333; border-radius: 12px; background: white; cursor: pointer; text-align: center; font-weight: 900; transition: 0.2s; font-size: 1.1em; color: #000000; }
+        .btn.active { border-color: #2d5a27; background: #e8f5e9; color: #2d5a27; border-width: 4px; }
+        
+        /* 金額與備註輸入框 */
+        input { width: 100%; padding: 18px; border: 2px solid #000; border-radius: 12px; box-sizing: border-box; font-size: 22px; outline: none; font-weight: 900; color: #000; }
+        
+        /* 選擇分類按鈕：加大文字與間距 */
+        .choice-btn { background: white; border: 2px solid #333; border-radius: 16px; padding: 20px; text-align: left; cursor: pointer; width: 100%; margin-bottom: 12px; transition: 0.2s; }
+        .choice-btn.active { border-color: #2d5a27; background: #e8f5e9; border-width: 4px; }
+        .choice-btn .t { font-weight: 900; display: block; font-size: 1.3em; color: #000000; }
+        
+        /* 確認送出按鈕：手機好點的大按鈕 */
+        .submit-btn { width: 100%; padding: 22px; background: #2d5a27; color: white; border: none; border-radius: 15px; font-size: 1.5em; font-weight: 900; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 15px rgba(45,90,39,0.3); }
+        
+        /* 看板樣式加強：純黑顯眼 */
+        .dashboard { margin-top: 35px; padding: 22px; background: #ffffff; border-radius: 18px; border: 2px solid #000; }
+        .dashboard h3 { margin-top: 0; font-size: 1.4em; color: #000; border-bottom: 2px solid #000; padding-bottom: 10px; font-weight: 900; }
+        
+        .db-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .db-item { display: flex; flex-direction: column; }
+        .db-label { color: #000000; margin-bottom: 6px; font-weight: 900; font-size: 1.1em; }
+        .db-value { font-weight: 900; font-size: 1.6em; color: #000000; }
+        
+        .warning { color: #d93025 !important; } /* 超標顯紅 */
+        .full-width { grid-column: span 2; margin-top: 12px; padding-top: 12px; border-top: 2px dashed #000; }
+        
+        #val_debt_countdown { font-size: 1.4em; font-weight: 900; color: #2d5a27; line-height: 1.4; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2 style="text-align:center; color:#2d5a27; margin-bottom:5px;">🌿 財務管理系統</h2>
-    <p style="text-align:center; color:#666; font-size:0.85em; margin-bottom:25px;">目標：還清債務 50 萬 ＆ 中山區購屋</p>
+    <h2>🌿 財務管理系統</h2>
+    <p class="sub-title">給一兒一女最好的家：還債 50 萬 ＆ 中山區購屋</p>
 
     <div class="field">
         <label>交易類型</label>
@@ -59,19 +88,77 @@
     </div>
 
     <button class="submit-btn" id="submitBtn" onclick="sendToGoogle()">確認送出</button>
+
+    <div class="dashboard">
+        <h3>📊 即時財務警惕看板</h3>
+        <div class="db-grid">
+            <div class="db-item">
+                <span class="db-label">潘宥樽總開銷</span>
+                <span class="db-value" id="val_morlen_spend">載入中...</span>
+            </div>
+            <div class="db-item">
+                <span class="db-label">潘宥樽信用卡</span>
+                <span class="db-value" id="val_morlen_credit">載入中...</span>
+            </div>
+            <div class="db-item">
+                <span class="db-label">朱沛祺總開銷</span>
+                <span class="db-value" id="val_wife_spend">載入中...</span>
+            </div>
+            <div class="db-item">
+                <span class="db-label">朱沛祺信用卡</span>
+                <span class="db-value" id="val_wife_credit">載入中...</span>
+            </div>
+            <div class="db-item full-width">
+                <span class="db-label">共同基金餘額</span>
+                <span class="db-value" id="val_fund" style="color: #2d5a27;">載入中...</span>
+            </div>
+            <div class="db-item full-width">
+                <span class="db-label">🚨 負債倒數看板</span>
+                <span class="db-value" id="val_debt_countdown">連線中...</span>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxesmpsyBSKfmvXPPQrBR4HZRr06jizlDA9Tv2Fvw-AtLY3t-Ekea4_bQEDlZbBiVhWvg/exec";
+
     let selectedType = "支出";
     let selectedPayer = "";
     let selectedCategory = "";
 
-    // 已經調整：信用卡移除債務清零，支出新增「繳信用卡費」
     const categories = {
         "支出": ["居家生活", "飲食採買", "孩子專區", "交通通訊", "醫療稅務", "興趣休閒", "動物教學專區", "ACCUPASS出差支出", "負債清零計畫", "繳信用卡費", "靈活應用金", "其他"],
         "信用卡": ["居家生活", "飲食採買", "孩子專區", "交通通訊", "醫療稅務", "興趣休閒", "動物教學專區", "ACCUPASS出差支出", "靈活應用金", "其他"],
         "收入": ["薪資收入", "投資收入", "其他收入"]
     };
+
+    async function loadDashboard() {
+        try {
+            const response = await fetch(GAS_URL);
+            const data = await response.json();
+            
+            updateText('val_morlen_spend', data.morlen_spend, 40000);
+            updateText('val_morlen_credit', data.morlen_credit, 10000);
+            updateText('val_wife_spend', data.wife_spend, 40000);
+            updateText('val_wife_credit', data.wife_credit, 10000);
+            
+            document.getElementById('val_fund').innerText = "$" + (data.fund || 0).toLocaleString();
+            document.getElementById('val_debt_countdown').innerText = data.debt_countdown || "尚未設定看板內容";
+        } catch (err) {
+            console.error("看板連線失敗", err);
+            document.getElementById('val_debt_countdown').innerText = "連線失敗，請檢查網路";
+        }
+    }
+
+    function updateText(id, value, limit) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const val = parseFloat(value) || 0;
+        el.innerText = "$" + val.toLocaleString();
+        if (val > limit) el.classList.add('warning');
+        else el.classList.remove('warning');
+    }
 
     function renderCategories() {
         const area = document.getElementById('categoryArea');
@@ -112,11 +199,8 @@
         btn.disabled = true;
         btn.innerText = "傳送中...";
 
-        // 自動變負數邏輯：確保支出與信用卡傳送到試算表時帶負號
-        if (selectedType === "支出" || selectedType === "信用卡") {
-            if (!amount.startsWith("-")) {
-                amount = "-" + amount;
-            }
+        if ((selectedType === "支出" || selectedType === "信用卡") && !amount.startsWith("-")) {
+            amount = "-" + amount;
         }
 
         const params = new URLSearchParams();
@@ -135,7 +219,10 @@
             });
     }
 
-    renderCategories();
+    window.onload = function() {
+        renderCategories();
+        loadDashboard();
+    };
 </script>
 </body>
 </html>
