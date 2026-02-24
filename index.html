@@ -3,98 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Morlen 共同記帳系統</title>
+    <title>Morlen 財務管理系統</title>
     <style>
-        body {
-            margin: 0; padding: 20px 10px;
-            background: url('https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
-            background-size: cover; font-family: "Microsoft JhengHei", sans-serif;
-            display: flex; justify-content: center; align-items: flex-start; min-height: 100vh;
-        }
-        .container {
-            background: rgba(255, 255, 255, 0.96); width: 100%; max-width: 480px;
-            padding: 25px; border-radius: 24px; box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-        }
-        h2 { color: #2d5a27; text-align: center; margin: 0; font-size: 1.6em; }
-        .subtitle { color: #666; text-align: center; font-size: 0.9em; margin-bottom: 25px; display: block; }
+        body { margin: 0; padding: 20px 10px; background: url('https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed; background-size: cover; font-family: "Microsoft JhengHei", sans-serif; display: flex; justify-content: center; min-height: 100vh; }
+        .container { background: rgba(255, 255, 255, 0.96); width: 100%; max-width: 480px; padding: 25px; border-radius: 24px; box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
         .field { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 10px; font-weight: bold; color: #333; font-size: 1.1em; }
-        .payer-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .payer-btn {
-            padding: 12px 5px; border: 2px solid #eee; border-radius: 12px;
-            background: white; cursor: pointer; font-weight: bold; text-align: center; font-size: 0.95em;
-        }
-        .payer-btn.active { border-color: #2d5a27; background: #f0f7ef; color: #2d5a27; }
-        input {
-            width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px;
-            box-sizing: border-box; font-size: 18px; outline: none;
-        }
-        .btn-group { display: flex; flex-direction: column; gap: 12px; }
-        .choice-btn {
-            background: white; border: 2px solid #eee; border-radius: 16px;
-            padding: 18px; text-align: left; cursor: pointer; width: 100%;
-        }
+        label { display: block; margin-bottom: 10px; font-weight: bold; color: #333; }
+        .group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .btn { padding: 12px 5px; border: 2px solid #eee; border-radius: 12px; background: white; cursor: pointer; text-align: center; font-weight: bold; transition: 0.2s; font-size: 0.9em; }
+        .btn.active { border-color: #2d5a27; background: #f0f7ef; color: #2d5a27; }
+        input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 18px; outline: none; }
+        .choice-btn { background: white; border: 2px solid #eee; border-radius: 16px; padding: 15px; text-align: left; cursor: pointer; width: 100%; margin-bottom: 10px; transition: 0.2s; }
         .choice-btn.active { border-color: #2d5a27; background: #f0f7ef; }
-        .title { font-size: 1.15em; font-weight: bold; color: #222; display: block; }
-        .desc { font-size: 0.85em; color: #777; display: block; margin-top: 6px; line-height: 1.4; }
-        .submit-btn {
-            width: 100%; padding: 18px; background: #2d5a27; color: white;
-            border: none; border-radius: 15px; font-size: 1.2em; font-weight: bold; margin-top: 30px; cursor: pointer;
-        }
+        .choice-btn .t { font-weight: bold; display: block; }
+        .submit-btn { width: 100%; padding: 18px; background: #2d5a27; color: white; border: none; border-radius: 15px; font-size: 1.2em; font-weight: bold; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>🌿 共同記帳</h2>
-    <span class="subtitle">記錄生活支出與工作成本</span>
+    <h2 style="text-align:center; color:#2d5a27; margin-bottom:5px;">🌿 財務管理系統</h2>
+    <p style="text-align:center; color:#666; font-size:0.85em; margin-bottom:25px;">目標：還清債務 50 萬 ＆ 中山區購屋</p>
 
     <div class="field">
-        <label>誰付的錢？</label>
-        <div class="payer-group">
-            <div class="payer-btn" onclick="selectPayer(this, '潘宥樽')">潘宥樽</div>
-            <div class="payer-btn" onclick="selectPayer(this, '朱沛祺')">朱沛祺</div>
-            <div class="payer-btn" onclick="selectPayer(this, '共同基金')">共同基金</div>
+        <label>交易類型</label>
+        <div class="group" id="typeGroup">
+            <div class="btn active" onclick="changeType('支出', this)">支出</div>
+            <div class="btn" onclick="changeType('收入', this)">收入</div>
+            <div class="btn" onclick="changeType('信用卡', this)">信用卡</div>
         </div>
     </div>
 
     <div class="field">
-        <label>支出金額</label>
+        <label id="payerLabel">所屬人</label>
+        <div class="group" id="payerGroup">
+            <div class="btn" onclick="selectPayer('潘宥樽', this)">潘宥樽</div>
+            <div class="btn" onclick="selectPayer('朱沛祺', this)">朱沛祺</div>
+            <div class="btn" onclick="selectPayer('共同基金', this)">共同基金</div>
+        </div>
+    </div>
+
+    <div class="field">
+        <label>金額</label>
         <input type="number" id="amount" placeholder="請輸入金額" inputmode="decimal">
     </div>
 
     <div class="field">
         <label>選擇分類</label>
-        <div class="btn-group">
-            <button class="choice-btn" onclick="selectCategory(this, '居家生活')">
-                <span class="title">居家生活</span>
-                <span class="desc">房租/貸款、水電、日常用品、軟裝</span>
-            </button>
-            <button class="choice-btn" onclick="selectCategory(this, '飲食採買')">
-                <span class="title">飲食採買</span>
-                <span class="desc">外食、買菜、外送、飲料</span>
-            </button>
-            <button class="choice-btn" onclick="selectCategory(this, '孩子專區')">
-                <span class="title">孩子專區</span>
-                <span class="desc">學雜費、玩具、衣服</span>
-            </button>
-            <button class="choice-btn" onclick="selectCategory(this, '交通通訊')">
-                <span class="title">交通通訊</span>
-                <span class="desc">油錢、停車費、手機費、車輛保養</span>
-            </button>
-            <button class="choice-btn" onclick="selectCategory(this, '動物教學專區')">
-                <span class="title">動物教學專區</span>
-                <span class="desc">飼料、墊材、教具、寵物購入</span>
-            </button>
-            <button class="choice-btn" onclick="selectCategory(this, 'ACCUPASS出差支出')">
-                <span class="title">ACCUPASS出差支出</span>
-                <span class="desc">設備、網路、出差支出</span>
-            </button>
-            <button class="choice-btn" onclick="selectCategory(this, '其他')">
-                <span class="title">其他</span>
-                <span class="desc">無法歸類的突發支出</span>
-            </button>
-        </div>
+        <div id="categoryArea"></div>
     </div>
 
     <div class="field">
@@ -106,57 +62,74 @@
 </div>
 
 <script>
+    let selectedType = "支出";
     let selectedPayer = "";
     let selectedCategory = "";
 
-    function selectPayer(el, val) {
-        document.querySelectorAll('.payer-btn').forEach(b => b.classList.remove('active'));
-        el.classList.add('active');
-        selectedPayer = val;
+    // 這裡精簡了收入分類，並保留原有的支出與信用卡選項
+    const categories = {
+        "支出": ["居家生活", "飲食採買", "孩子專區", "交通通訊", "醫療稅務", "興趣休閒", "動物與教學", "ACCUPASS出差支出", "靈活應用金", "其他"],
+        "收入": ["薪資收入", "投資收入", "其他收入"],
+        "信用卡": ["居家生活", "飲食採買", "交通通訊", "其他"]
+    };
+
+    function renderCategories() {
+        const area = document.getElementById('categoryArea');
+        area.innerHTML = "";
+        categories[selectedType].forEach(cat => {
+            const btn = document.createElement('button');
+            btn.className = 'choice-btn';
+            btn.innerHTML = `<span class="t">${cat}</span>`;
+            btn.onclick = function() {
+                document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedCategory = cat;
+            };
+            area.appendChild(btn);
+        });
     }
 
-    function selectCategory(el, val) {
-        document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('active'));
+    function changeType(type, el) {
+        selectedType = type;
+        document.querySelectorAll('#typeGroup .btn').forEach(b => b.classList.remove('active'));
         el.classList.add('active');
-        selectedCategory = val;
+        selectedCategory = "";
+        renderCategories();
+    }
+
+    function selectPayer(val, el) {
+        document.querySelectorAll('#payerGroup .btn').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+        selectedPayer = val;
     }
 
     function sendToGoogle() {
         const amount = document.getElementById('amount').value.trim();
         const note = document.getElementById('note').value.trim();
+        if(!amount || !selectedPayer || !selectedCategory) return alert('請填寫完整！');
+
         const btn = document.getElementById('submitBtn');
-
-        if(!amount || !selectedPayer || !selectedCategory) {
-            alert('請填寫金額並選擇付款人與分類！');
-            return;
-        }
-
         btn.disabled = true;
         btn.innerText = "傳送中...";
 
-        const baseURL = "https://docs.google.com/forms/d/e/1FAIpQLSeZincp4x3IA2v3ykuSmBhdFu_QeYL_iHbwreguQeINtw8HeA/formResponse";
-        
-        // --- 根據你提供的正確對應關係進行修正 ---
         const params = new URLSearchParams();
-        params.append('entry.1900830363', selectedPayer);     // 改為：付款人
-        params.append('entry.883377183', amount);             // 改為：金額
-        params.append('entry.1671228725', selectedCategory);  // 改為：類別
-        params.append('entry.429727703', note);               // 改為：備註
+        // 使用你確認的 Entry ID 進行對應
+        params.append('entry.760255955', selectedType); 
+        params.append('entry.1900830363', selectedPayer);
+        params.append('entry.883377183', amount);
+        params.append('entry.1671228725', selectedCategory);
+        params.append('entry.429727703', note);
 
-        const formURL = `${baseURL}?${params.toString()}`;
-
-        fetch(formURL, { mode: 'no-cors' })
+        const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSeZincp4x3IA2v3ykuSmBhdFu_QeYL_iHbwreguQeINtw8HeA/formResponse";
+        
+        fetch(`${formURL}?${params.toString()}`, { mode: 'no-cors' })
             .then(() => {
-                alert('記帳成功！');
-                location.reload(); 
-            })
-            .catch(err => {
-                alert('連線失敗，請稍後再試');
-                btn.disabled = false;
-                btn.innerText = "確認送出";
+                alert(selectedType + ' 記錄成功！');
+                location.reload();
             });
     }
-</script>
 
+    renderCategories();
+</script>
 </body>
 </html>
