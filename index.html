@@ -3,56 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Morlen 財務管理系統 - 大地色系版</title>
+    <title>Morlen 財務管理系統 - 大地撞色版</title>
     <style>
-        /* 背景：低對比度的植物背景 */
+        /* 整體背景：改為單色大地暖沙色，降低眼睛負擔 */
         body { 
             margin: 0; 
             padding: 20px 10px; 
-            background: url('https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed; 
-            background-size: cover; 
-            background-blend-mode: overlay;
-            background-color: rgba(234, 226, 183, 0.4); /* 暖黃色濾鏡 */
+            background-color: #F4EAE0; /* 暖沙大地色 */
             font-family: "Microsoft JhengHei", sans-serif; 
             display: flex; 
             justify-content: center; 
             min-height: 100vh; 
         }
         
-        /* 容器：暖沙大地色 */
+        /* 容器：柔和白，增加撞色邊框感 */
         .container { 
-            background: #FDF0D5; /* 暖沙色 */
+            background: #FDFCF0; 
             width: 100%; 
             max-width: 480px; 
             padding: 25px; 
-            border-radius: 30px; 
-            box-shadow: 12px 12px 0px #BC6C25; /* 陶土棕撞色陰影 */
-            border: 3px solid #283618; /* 深森林綠邊框 */
+            border-radius: 35px; 
+            box-shadow: 12px 12px 0px #F4A261; /* 橘棕色撞色陰影 */
+            border: 3px solid #264653; /* 深藍綠邊框 */
         }
         
-        /* 標題：焦糖棕設計 */
+        /* 標題：採用活潑的珊瑚粉紅 */
         h2 { 
             text-align:center; 
-            background: #BC6C25; /* 焦糖色 */
+            background: #E76F51; /* 珊瑚粉紅 */
             color: #fff; 
             display: inline-block;
             width: 100%;
             padding: 12px 0;
-            border-radius: 12px;
+            border-radius: 15px;
             margin-bottom:10px; 
             font-weight: 900; 
             font-size: 1.6em; 
-            box-shadow: 4px 4px 0px #283618;
+            box-shadow: 4px 4px 0px #264653;
         }
         .sub-title { 
             text-align:center; 
-            color: #283618; 
+            color: #264653; 
             font-size:1.1em; 
             margin-bottom:25px; 
             font-weight: bold; 
-            background: #DDA15E; /* 淺土黃 */
+            background: #E9C46A; /* 明黃色 */
             padding: 8px;
-            border-radius: 8px;
+            border-radius: 10px;
         }
         
         .field { margin-bottom: 25px; }
@@ -61,52 +58,52 @@
             margin-bottom: 10px; 
             font-weight: 900; 
             color: #fff; 
-            background: #283618; /* 深綠標籤 */
-            padding: 2px 10px;
-            border-radius: 5px;
+            background: #264653; 
+            padding: 4px 12px;
+            border-radius: 8px;
             font-size: 1em; 
         }
         
-        /* 按鈕群組：莫蘭迪撞色 */
+        /* 按鈕群組：白色基底與天藍綠撞色 */
         .group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
         .btn { 
             padding: 15px 5px; 
-            border: 2px solid #283618; 
-            border-radius: 10px; 
-            background: #FEFAE0; /* 象牙色 */
+            border: 2px solid #264653; 
+            border-radius: 12px; 
+            background: #fff; 
             cursor: pointer; 
             text-align: center; 
             font-weight: 900; 
             transition: 0.2s; 
             font-size: 1em; 
-            color: #283618;
-            box-shadow: 3px 3px 0px #283618;
+            color: #264653;
+            box-shadow: 3px 3px 0px #264653;
         }
-        /* 選中狀態：鼠尾草綠 */
+        /* 選中狀態：活潑綠藍色 */
         .btn.active { 
-            background: #606C38; /* 鼠尾草綠 */
+            background: #2A9D8F; 
             color: #fff;
             transform: translate(2px, 2px);
-            box-shadow: 0px 0px 0px #283618;
+            box-shadow: 0px 0px 0px #264653;
         }
         
         input { 
             width: 100%; 
             padding: 16px; 
-            border: 2px solid #283618; 
-            border-radius: 10px; 
+            border: 2px solid #264653; 
+            border-radius: 12px; 
             box-sizing: border-box; 
             font-size: 20px; 
             outline: none; 
             font-weight: 900; 
-            background: #FEFAE0;
-            color: #283618;
+            background: #fff;
+            color: #264653;
         }
         
-        /* 分類按鈕：陶土紅調 */
+        /* 分類按鈕：珊瑚粉撞色 */
         .choice-btn { 
-            background: #FEFAE0; 
-            border: 2px solid #283618; 
+            background: #fff; 
+            border: 2px solid #264653; 
             border-radius: 15px; 
             padding: 14px; 
             text-align: center; 
@@ -114,70 +111,69 @@
             width: 100%; 
             margin-bottom: 10px; 
             transition: 0.2s; 
-            box-shadow: 3px 3px 0px #283618;
+            box-shadow: 3px 3px 0px #264653;
         }
         .choice-btn.active { 
-            background: #BC6C25; /* 陶土紅 */
+            background: #E76F51; 
             color: #fff;
-            box-shadow: 0px 0px 0px #283618;
+            box-shadow: 0px 0px 0px #264653;
         }
         .choice-btn .t { font-weight: 900; font-size: 1.1em; }
         
-        /* 確認按鈕：大膽綠色 */
+        /* 確認按鈕：天藍色大按鈕 */
         .submit-btn { 
             width: 100%; 
             padding: 20px; 
-            background: #606C38; 
+            background: #2A9D8F; 
             color: white; 
-            border: 2px solid #283618; 
-            border-radius: 15px; 
+            border: 2px solid #264653; 
+            border-radius: 18px; 
             font-size: 1.5em; 
             font-weight: 900; 
             cursor: pointer; 
             margin-top: 15px; 
-            box-shadow: 6px 6px 0px #283618;
-            text-shadow: 1px 1px 0px #000;
+            box-shadow: 6px 6px 0px #264653;
         }
         .submit-btn:active {
             transform: translate(3px, 3px);
-            box-shadow: 0px 0px 0px #283618;
+            box-shadow: 0px 0px 0px #264653;
         }
         
-        /* 看板：改為穩重的大地深色調 */
+        /* 看板：明黃撞色底 */
         .dashboard { 
             margin-top: 30px; 
             padding: 20px; 
-            background: #DDA15E; 
-            border-radius: 20px; 
-            border: 2px solid #283618; 
-            box-shadow: 6px 6px 0px #283618;
+            background: #E9C46A; 
+            border-radius: 25px; 
+            border: 2px solid #264653; 
+            box-shadow: 6px 6px 0px #264653;
         }
         .dashboard h3 { 
             margin-top: 0; 
             font-size: 1.2em; 
-            background: #283618;
-            color: #FEFAE0; 
-            padding: 5px 10px;
-            border-radius: 5px;
+            background: #264653;
+            color: #fff; 
+            padding: 5px 12px;
+            border-radius: 8px;
             font-weight: 900; 
             display: inline-block;
         }
         
         .db-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top:15px; }
-        .db-label { color: #283618; font-weight: 900; font-size: 0.9em; }
-        .db-value { font-weight: 900; font-size: 1.4em; color: #283618; }
+        .db-label { color: #264653; font-weight: 900; font-size: 0.9em; }
+        .db-value { font-weight: 900; font-size: 1.4em; color: #264653; }
         
-        .warning { background: #AE2012; color: #fff !important; padding: 0 4px; border-radius: 4px; }
-        .full-width { grid-column: span 2; padding-top: 12px; border-top: 2px dashed #283618; }
+        .warning { background: #E76F51; color: #fff !important; border-radius: 5px; padding: 2px 5px; }
+        .full-width { grid-column: span 2; padding-top: 12px; border-top: 2px dashed #264653; }
         
-        #val_debt_countdown { font-size: 1.1em; color: #283618; font-weight: 900; line-height: 1.4; }
+        #val_debt_countdown { font-size: 1.1em; color: #264653; font-weight: 900; line-height: 1.4; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>🌿 Morlen & Peggy 財務系統</h2>
-    <p class="sub-title">給家人最好的：負債清零 ＆ 換車</p>
+    <h2>🎨 Morlen & Peggy 財務系統</h2>
+    <p class="sub-title">給一兒一女最好的家：清空債務</p>
 
     <div class="field">
         <label>交易類型</label>
@@ -209,24 +205,24 @@
 
     <div class="field">
         <label>備註</label>
-        <input type="text" id="note" placeholder="補充說明">
+        <input type="text" id="note" placeholder="詳細說明">
     </div>
 
-    <button class="submit-btn" id="submitBtn" onclick="sendToGoogle()">💾 紀錄當前帳目</button>
+    <button class="submit-btn" id="submitBtn" onclick="sendToGoogle()">🚀 確認送出紀錄</button>
 
     <div class="dashboard">
-        <h3>📊 2月即時狀態</h3>
+        <h3>📊 即時看板</h3>
         <div class="db-grid">
             <div class="db-item"><span class="db-label">潘宥樽 支出</span><br><span class="db-value" id="val_morlen_spend">...</span></div>
             <div class="db-item"><span class="db-label">潘宥樽 刷卡</span><br><span class="db-value" id="val_morlen_credit">...</span></div>
             <div class="db-item"><span class="db-label">朱沛祺 支出</span><br><span class="db-value" id="val_wife_spend">...</span></div>
             <div class="db-item"><span class="db-label">朱沛祺 刷卡</span><br><span class="db-value" id="val_wife_credit">...</span></div>
             <div class="db-item full-width">
-                <span class="db-label">共同基金目前水位</span><br>
-                <span class="db-value" id="val_fund" style="color: #606C38;">...</span>
+                <span class="db-label">共同基金餘額</span><br>
+                <span class="db-value" id="val_fund" style="color: #264653;">...</span>
             </div>
             <div class="db-item full-width">
-                <span class="db-label">🚨 債務清除進度</span><br>
+                <span class="db-label">🚨 債務倒數看板</span><br>
                 <span class="db-value" id="val_debt_countdown">連線中...</span>
             </div>
         </div>
@@ -255,7 +251,7 @@
             updateText('val_wife_spend', data.wife_spend, 40000);
             updateText('val_wife_credit', data.wife_credit, 10000);
             document.getElementById('val_fund').innerText = "$" + (data.fund || 0).toLocaleString();
-            document.getElementById('val_debt_countdown').innerText = data.debt_countdown || "加油！夢想不遠";
+            document.getElementById('val_debt_countdown').innerText = data.debt_countdown || "加油！夢想在不遠處";
         } catch (err) {
             console.error("看板連線失敗");
         }
@@ -303,11 +299,11 @@
     function sendToGoogle() {
         let amount = document.getElementById('amount').value.trim();
         const note = document.getElementById('note').value.trim();
-        if(!amount || !selectedPayer || !selectedCategory) return alert('請檢查：姓名、分類、金額皆需填寫！');
+        if(!amount || !selectedPayer || !selectedCategory) return alert('請填寫完整！');
 
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
-        btn.innerText = "資料傳送中...";
+        btn.innerText = "傳送中...";
 
         if ((selectedType === "支出" || selectedType === "信用卡") && !amount.startsWith("-")) {
             amount = "-" + amount;
