@@ -5,32 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morlen & Peggy 財務管理系統</title>
     <style>
-        /* 整體背景：改為單色大地暖沙色，降低眼睛負擔 */
+        /* 整體背景：大地暖沙色 */
         body { 
             margin: 0; 
             padding: 20px 10px; 
-            background-color: #F4EAE0; /* 暖沙大地色 */
+            background-color: #F4EAE0; 
             font-family: "Microsoft JhengHei", sans-serif; 
             display: flex; 
             justify-content: center; 
             min-height: 100vh; 
         }
         
-        /* 容器：柔和白，增加撞色邊框感 */
         .container { 
             background: #FDFCF0; 
             width: 100%; 
             max-width: 480px; 
             padding: 25px; 
             border-radius: 35px; 
-            box-shadow: 12px 12px 0px #F4A261; /* 橘棕色撞色陰影 */
-            border: 3px solid #264653; /* 深藍綠邊框 */
+            box-shadow: 12px 12px 0px #F4A261; 
+            border: 3px solid #264653; 
         }
         
-        /* 標題：採用活潑的珊瑚粉紅 */
         h2 { 
             text-align:center; 
-            background: #E76F51; /* 珊瑚粉紅 */
+            background: #E76F51; 
             color: #fff; 
             display: inline-block;
             width: 100%;
@@ -47,7 +45,7 @@
             font-size:1.1em; 
             margin-bottom:25px; 
             font-weight: bold; 
-            background: #E9C46A; /* 明黃色 */
+            background: #E9C46A; 
             padding: 8px;
             border-radius: 10px;
         }
@@ -64,7 +62,6 @@
             font-size: 1.1em; 
         }
         
-        /* 按鈕群組 */
         .group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
         .btn { 
             padding: 15px 5px; 
@@ -99,12 +96,11 @@
             color: #264653;
         }
         
-        /* 分類按鈕：內文字黑色、字體放大 */
         .choice-btn { 
             background: #fff; 
             border: 2px solid #264653; 
             border-radius: 15px; 
-            padding: 18px 10px; /* 增加高度更易點選 */
+            padding: 18px 10px; 
             text-align: center; 
             cursor: pointer; 
             width: 100%; 
@@ -114,18 +110,17 @@
         }
         .choice-btn.active { 
             background: #E76F51; 
-            color: #fff !important; /* 選中時維持白色 */
+            color: #fff !important; 
             box-shadow: 0px 0px 0px #264653;
             transform: translate(2px, 2px);
         }
         .choice-btn .t { 
             font-weight: 900; 
             display: block; 
-            font-size: 1.25em; /* 字體放大 */
-            color: #000000; /* 未選中時文字純黑 */
+            font-size: 1.25em; 
+            color: #000000; 
         }
         
-        /* 確認按鈕 */
         .submit-btn { 
             width: 100%; 
             padding: 20px; 
@@ -139,12 +134,31 @@
             margin-top: 15px; 
             box-shadow: 6px 6px 0px #264653;
         }
-        .submit-btn:active {
-            transform: translate(3px, 3px);
+
+        /* 查看紀錄按鈕樣式 */
+        .view-btn { 
+            width: 100%; 
+            padding: 15px; 
+            background: #F4A261; 
+            color: #264653; 
+            border: 2px solid #264653; 
+            border-radius: 18px; 
+            font-size: 1.2em; 
+            font-weight: 900; 
+            cursor: pointer; 
+            margin-top: 15px; 
+            box-shadow: 4px 4px 0px #264653;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        .view-btn:active {
+            transform: translate(2px, 2px);
             box-shadow: 0px 0px 0px #264653;
         }
         
-        /* 看板 */
         .dashboard { 
             margin-top: 30px; 
             padding: 20px; 
@@ -170,8 +184,6 @@
         
         .warning { background: #E76F51; color: #fff !important; border-radius: 5px; padding: 2px 5px; }
         .full-width { grid-column: span 2; padding-top: 12px; border-top: 2px dashed #264653; }
-        
-        #val_debt_countdown { font-size: 1.1em; color: #264653; font-weight: 900; line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -214,6 +226,8 @@
     </div>
 
     <button class="submit-btn" id="submitBtn" onclick="sendToGoogle()">🚀 確認送出紀錄</button>
+
+    <a href="https://docs.google.com/spreadsheets/d/1OI1QkqFLfwbUgF9tcI8Dy6OwUzCrKCGz10_8zjvg2cI/edit?gid=103984035#gid=103984035" target="_blank" class="view-btn">🔍 查看紀錄明細</a>
 
     <div class="dashboard">
         <h3>📊 即時看板</h3>
